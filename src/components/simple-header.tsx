@@ -1,4 +1,3 @@
-import React from 'react'; 
 import { Grid2x2PlusIcon } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 
