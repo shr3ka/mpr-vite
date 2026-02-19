@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SERVICES = [
   {
@@ -54,6 +54,7 @@ const CAMPAIGNS = [
     result: "28 Wins",
     color: "#c8391a",
     flag: "🇮🇳",
+    video: "src/assets/after byte RC new audio.mp4",
   },
   {
     election: "Maharashtra Vidhan Sabha",
@@ -62,6 +63,7 @@ const CAMPAIGNS = [
     result: "41 Wins",
     color: "#e05a35",
     flag: "🗳",
+    video: "src/assets/BJP रेवड़ी मॉडल EXPOSED.mp4",
   },
   {
     election: "Delhi Assembly 2025",
@@ -70,6 +72,7 @@ const CAMPAIGNS = [
     result: "Ongoing",
     color: "#b8320f",
     flag: "🏛",
+    video: "src/assets/Chief Election Commissioner bill #Explained  ...#Patcummins #DavidWarner #RohitSharma #WC23.mp4",
   },
   {
     election: "Bihar Vidhan Sabha",
@@ -78,6 +81,8 @@ const CAMPAIGNS = [
     result: "22 Wins",
     color: "#d04020",
     flag: "🗺",
+    // Replace with your actual file: src/assets/bihar.mp4
+    video: "/src/assets/bihar.mp4",
   },
 ];
 
@@ -112,6 +117,7 @@ const MARQUEE_ITEMS = [
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [lightboxVideo, setLightboxVideo] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -388,6 +394,93 @@ export default function Home() {
           height: 3px; background: var(--peach-mid); position: absolute; bottom: 0; left: 0; right: 0;
         }
         .campaign-bar-fill { height: 100%; transition: width 1s ease; }
+
+        /* ── VIDEO THUMBNAIL ── */
+        .campaign-video-wrap {
+          position: relative; width: 100%; aspect-ratio: 16/9;
+          overflow: hidden; background: #111; cursor: pointer;
+        }
+        .campaign-video-wrap video {
+          width: 100%; height: 100%; object-fit: cover;
+          transition: transform 0.5s ease, opacity 0.3s ease;
+          opacity: 0.85;
+        }
+        .campaign-video-wrap:hover video { transform: scale(1.04); opacity: 1; }
+        .campaign-video-overlay {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+          background: linear-gradient(
+            to top,
+            rgba(26,21,18,0.7) 0%,
+            rgba(26,21,18,0.1) 50%,
+            transparent 100%
+          );
+          transition: background 0.3s;
+        }
+        .campaign-video-wrap:hover .campaign-video-overlay {
+          background: linear-gradient(
+            to top,
+            rgba(26,21,18,0.5) 0%,
+            rgba(26,21,18,0.05) 40%,
+            transparent 100%
+          );
+        }
+        .campaign-play-btn {
+          width: 52px; height: 52px; border-radius: 50%;
+          background: rgba(255,255,255,0.92);
+          display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+          transition: transform 0.25s ease, background 0.25s;
+        }
+        .campaign-video-wrap:hover .campaign-play-btn {
+          transform: scale(1.1); background: white;
+        }
+        .campaign-play-icon {
+          width: 0; height: 0;
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+          border-left: 17px solid var(--red);
+          margin-left: 4px;
+        }
+        .campaign-video-label {
+          position: absolute; bottom: 12px; left: 16px;
+          font-family: var(--sans); font-size: 11px; font-weight: 600;
+          color: rgba(255,255,255,0.8); letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        /* ── LIGHTBOX ── */
+        .lightbox-backdrop {
+          position: fixed; inset: 0; z-index: 1000;
+          background: rgba(10,8,6,0.92);
+          display: flex; align-items: center; justify-content: center;
+          backdrop-filter: blur(8px);
+          animation: fadeIn 0.25s ease;
+        }
+        .lightbox-inner {
+          position: relative; width: 90vw; max-width: 1000px;
+          animation: scaleIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .lightbox-inner video {
+          width: 100%; border-radius: 4px;
+          box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+          display: block;
+        }
+        .lightbox-close {
+          position: absolute; top: -44px; right: 0;
+          background: none; border: none; cursor: pointer;
+          font-family: var(--sans); font-size: 13px; font-weight: 600;
+          color: rgba(255,255,255,0.6); letter-spacing: 0.1em;
+          display: flex; align-items: center; gap: 8px;
+          transition: color 0.2s;
+        }
+        .lightbox-close:hover { color: white; }
+        .lightbox-close-x {
+          width: 28px; height: 28px; border-radius: 50%;
+          border: 1.5px solid rgba(255,255,255,0.3);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 16px; line-height: 1;
+        }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.93); } to { opacity: 1; transform: scale(1); } }
 
         /* ── ABOUT ── */
         .about-section {
@@ -682,6 +775,35 @@ export default function Home() {
                 Math.round(parseInt(c.result) / parseInt(c.seats) * 100);
               return (
                 <div className={`campaign-card reveal reveal-delay-${(i % 2) + 1}`} key={c.election}>
+
+                  {/* Video thumbnail — hover to preview, click to open lightbox */}
+                  <div
+                    className="campaign-video-wrap"
+                    onClick={() => setLightboxVideo(c.video)}
+                    onMouseEnter={(e) => {
+                      const vid = e.currentTarget.querySelector("video");
+                      vid?.play();
+                    }}
+                    onMouseLeave={(e) => {
+                      const vid = e.currentTarget.querySelector("video");
+                      if (vid) { vid.pause(); vid.currentTime = 0; }
+                    }}
+                  >
+                    <video
+                      src={c.video}
+                      muted
+                      playsInline
+                      loop
+                      preload="metadata"
+                    />
+                    <div className="campaign-video-overlay">
+                      <div className="campaign-play-btn">
+                        <div className="campaign-play-icon" />
+                      </div>
+                      <span className="campaign-video-label">Watch Campaign Reel</span>
+                    </div>
+                  </div>
+
                   <div className="campaign-card-top">
                     <span className="campaign-flag">{c.flag}</span>
                     <span className={`campaign-result-badge ${c.result === "Ongoing" ? "ongoing" : ""}`}>
@@ -717,6 +839,26 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── LIGHTBOX ── */}
+      {lightboxVideo && (
+        <div
+          className="lightbox-backdrop"
+          onClick={() => setLightboxVideo(null)}
+        >
+          <div className="lightbox-inner" onClick={(e) => e.stopPropagation()}>
+            <button className="lightbox-close" onClick={() => setLightboxVideo(null)}>
+              CLOSE <span className="lightbox-close-x">✕</span>
+            </button>
+            <video
+              src={lightboxVideo}
+              controls
+              autoPlay
+              playsInline
+            />
+          </div>
+        </div>
+      )}
 
       {/* ── ABOUT ── */}
       <section id="about" className="about-section">

@@ -42,13 +42,19 @@ export default function Header() {
           display: flex; align-items: center; justify-content: space-between;
           padding: 20px 64px;
           transition: all 0.4s ease;
+          /* Frosted glass — always on */
+          background: rgba(250, 249, 247, 0.55);
+          backdrop-filter: blur(16px) saturate(160%);
+          -webkit-backdrop-filter: blur(16px) saturate(160%);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.45);
         }
         .nav.scrolled {
-          background: rgba(250,249,247,0.96);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
+          background: rgba(250, 249, 247, 0.82);
+          backdrop-filter: blur(24px) saturate(180%);
+          -webkit-backdrop-filter: blur(24px) saturate(180%);
+          border-bottom: 1px solid rgba(200, 57, 26, 0.1);
           padding: 13px 64px;
-          box-shadow: 0 1px 0 rgba(200,57,26,0.1), 0 4px 28px rgba(0,0,0,0.07);
+          box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
         }
 
         /* Logo */
