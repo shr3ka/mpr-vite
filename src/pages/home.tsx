@@ -588,8 +588,6 @@ export default function Home() {
         }
       `}</style>
 
-      <Header />
-
       {/* ── HERO ── */}
       <section id="home" className="hero" ref={heroRef}>
         <div className="hero-shapes">
