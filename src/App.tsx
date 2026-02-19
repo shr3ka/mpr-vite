@@ -1,9 +1,9 @@
-import { SimpleHeader } from './components/simple-header.tsx'
+import SimpleHeader from './components/simple-header.tsx'
 import { Routes, Route, Outlet } from 'react-router'
 import Home from './pages/home.tsx'
 import About from './pages/about.tsx'
 import Media from './pages/media.tsx'
-import ContactUs from './pages/contact.tsx'
+import ContactUs from './pages/contact-us.tsx'
 
 function App() {
   return (

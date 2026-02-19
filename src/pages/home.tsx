@@ -1,91 +1,117 @@
-import { useEffect, useRef, useState } from "react";
-
-const NAV_LINKS = ["Home", "About", "Services", "Media", "Contact"];
+import { useEffect, useRef } from "react";
 
 const SERVICES = [
   {
     number: "01",
     title: "Campaign Strategy",
-    desc: "From message architecture to voter targeting, we build the blueprint that turns aspirations into electoral victories.",
+    desc: "From constituency profiling to caste-demographic outreach, we build winning blueprints rooted in ground realities.",
     icon: "◈",
   },
   {
     number: "02",
     title: "Ground Operations",
-    desc: "Precision field deployment, volunteer coordination, and real-time analytics to maximize your ground game impact.",
+    desc: "Booth-level management, panna pramukh coordination, and karyakarta mobilisation backed by real-time data.",
     icon: "◉",
   },
   {
     number: "03",
-    title: "Media Positioning",
-    desc: "Earned media strategy, rapid response, and narrative control that keeps your campaign driving the conversation.",
+    title: "Media & Narrative",
+    desc: "Earned media strategy, vernacular communication, and rapid response to control the news cycle across all platforms.",
     icon: "◎",
   },
   {
     number: "04",
-    title: "Digital Outreach",
-    desc: "Data-driven digital advertising, social media ecosystems, and online fundraising built for modern campaigns.",
+    title: "Digital & Social",
+    desc: "WhatsApp ecosystem management, targeted social ads, and content in Hindi, Marathi, Urdu, and regional languages.",
     icon: "◈",
   },
   {
     number: "05",
-    title: "Opposition Research",
-    desc: "Comprehensive research and intelligence that anticipates attacks and identifies contrast opportunities.",
+    title: "Voter Research",
+    desc: "Hyper-local voter segmentation, issue mapping, and sentiment surveys to identify swing blocks and consolidate base.",
     icon: "◉",
   },
   {
     number: "06",
-    title: "Crisis Management",
-    desc: "24/7 rapid response infrastructure and communications protocols to protect your campaign when it matters most.",
+    title: "Crisis & War Room",
+    desc: "24/7 war room operations, opposition intelligence, and communications protocols to hold your position under fire.",
     icon: "◎",
   },
 ];
 
 const STATS = [
-  { value: "87", suffix: "%", label: "Win Rate" },
-  { value: "200", suffix: "+", label: "Campaigns Managed" },
-  { value: "18", suffix: "", label: "States Active" },
-  { value: "40", suffix: "M+", label: "Voters Reached" },
+  { value: "83", suffix: "%", label: "Win Rate" },
+  { value: "120", suffix: "+", label: "Seats Contested" },
+  { value: "9", suffix: "", label: "States Active" },
+  { value: "60", suffix: "M+", label: "Voters Reached" },
+];
+
+const CAMPAIGNS = [
+  {
+    election: "Lok Sabha 2024",
+    scope: "National",
+    seats: "34 Constituencies",
+    result: "28 Wins",
+    color: "#c8391a",
+    flag: "🇮🇳",
+  },
+  {
+    election: "Maharashtra Vidhan Sabha",
+    scope: "State",
+    seats: "52 Seats",
+    result: "41 Wins",
+    color: "#e05a35",
+    flag: "🗳",
+  },
+  {
+    election: "Delhi Assembly 2025",
+    scope: "State",
+    seats: "18 Seats",
+    result: "Ongoing",
+    color: "#b8320f",
+    flag: "🏛",
+  },
+  {
+    election: "Bihar Vidhan Sabha",
+    scope: "State",
+    seats: "28 Seats",
+    result: "22 Wins",
+    color: "#d04020",
+    flag: "🗺",
+  },
 ];
 
 const PRINCIPLES = [
   {
     num: "I",
-    title: "Intelligence Before Action",
-    text: "Every strategy begins with deep research — opposition, district, voters, and media environment.",
+    title: "Booth Is the Basic Unit",
+    text: "Every strategy cascades down to the booth level. We don't win elections — we win booths, and booths win elections.",
   },
   {
     num: "II",
-    title: "Structure Creates Freedom",
-    text: "Strong operational frameworks let campaigns respond to events without losing strategic coherence.",
+    title: "Data Meets Ground Reality",
+    text: "EVM-era elections are won with psephology and feet on the ground. We bridge both without compromise.",
   },
   {
     num: "III",
-    title: "Execution Is Everything",
-    text: "The best strategy executed poorly loses. We build teams that deliver at every level.",
+    title: "Speed & Discipline",
+    text: "In a 60-day campaign cycle, execution discipline separates contenders from winners. We move fast without breaking structure.",
   },
 ];
 
 const MARQUEE_ITEMS = [
-  "Campaign Strategy",
-  "Ground Operations",
-  "Media Positioning",
-  "Digital Outreach",
-  "Opposition Research",
-  "Crisis Management",
-  "Voter Targeting",
-  "Message Architecture",
+  "Lok Sabha Elections",
+  "Vidhan Sabha Campaigns",
+  "Booth Management",
+  "Karyakarta Mobilisation",
+  "Vernacular Media",
+  "Voter Outreach",
+  "WhatsApp Campaigns",
+  "War Room Operations",
 ];
 
 export default function Home() {
-  const [scrolled, setScrolled] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -124,109 +150,53 @@ export default function Home() {
           --ink: #1a1512;
           --ink-mid: #4a3f35;
           --ink-light: #8a7a6e;
-          --caveat: 'Caveat', cursive;
           --sans: 'DM Sans', sans-serif;
+          --caveat: 'Caveat', cursive;
+          --saffron: #FF9933;
+          --india-green: #138808;
         }
 
         html { scroll-behavior: smooth; }
 
-        /* NAV */
-        .nav {
-          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-          display: flex; align-items: center; justify-content: space-between;
-          padding: 22px 64px;
-          transition: all 0.4s ease;
-        }
-        .nav.scrolled {
-          background: rgba(250,249,247,0.95);
-          backdrop-filter: blur(12px);
-          padding: 14px 64px;
-          box-shadow: 0 1px 0 rgba(200,57,26,0.12), 0 4px 24px rgba(0,0,0,0.06);
-        }
-        .nav-logo {
-          display: flex; align-items: center; gap: 0;
-          text-decoration: none; cursor: pointer;
-        }
-        .nav-logo-block {
-          display: flex; align-items: center; gap: 0;
-          position: relative; width: 48px; height: 34px;
-        }
-        .logo-card-back {
-          width: 48px; height: 34px;
-          background: var(--coral);
-          position: absolute; top: -3px; left: 3px;
-          transform: rotate(3deg);
-          border-radius: 2px;
-        }
-        .logo-card-front {
-          width: 48px; height: 34px;
-          background: var(--red);
-          position: absolute; top: 0; left: 0;
-          display: flex; align-items: center; justify-content: center;
-          border-radius: 2px;
-        }
-        .logo-mpr {
-          font-family: var(--sans);
-          font-size: 13px; font-weight: 700;
-          color: white; letter-spacing: -0.02em;
-          line-height: 1;
-        }
-        .logo-mpr .small-m { font-size: 9px; vertical-align: middle; }
-        .logo-consulting {
-          font-family: var(--caveat);
-          font-size: 22px; font-weight: 600;
-          color: var(--coral); margin-left: 14px;
-        }
-        .nav-links { display: flex; gap: 36px; list-style: none; }
-        .nav-links a {
-          font-family: var(--sans);
-          font-size: 13px; letter-spacing: 0.04em;
-          color: var(--ink-mid); text-decoration: none;
-          transition: color 0.25s; cursor: pointer; font-weight: 500;
-        }
-        .nav-links a:hover { color: var(--red); }
-        .nav-cta {
-          font-family: var(--sans);
-          font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
-          background: var(--red); border: none;
-          color: white; padding: 10px 22px;
-          border-radius: 2px; cursor: pointer;
-          transition: all 0.25s;
-        }
-        .nav-cta:hover { background: var(--red-deep); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(200,57,26,0.3); }
-
-        /* HERO */
+        /* ── HERO ── */
         .hero {
           position: relative; min-height: 100vh;
           display: flex; align-items: center;
-          overflow: hidden;
-          background: var(--warm-white);
+          overflow: hidden; background: var(--warm-white);
         }
-        .hero-shapes {
-          position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-        }
+        .hero-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
         .shape-1 {
-          position: absolute; width: 520px; height: 520px;
+          position: absolute; width: 540px; height: 540px;
           background: var(--peach); border-radius: 4px;
-          top: -80px; right: -60px;
-          transform: rotate(8deg); opacity: 0.8;
+          top: -90px; right: -70px; transform: rotate(8deg); opacity: 0.85;
         }
         .shape-2 {
-          position: absolute; width: 520px; height: 520px;
+          position: absolute; width: 540px; height: 540px;
           background: var(--peach-mid); border-radius: 4px;
-          top: -40px; right: -20px;
-          transform: rotate(3deg); opacity: 0.5;
+          top: -40px; right: -20px; transform: rotate(3deg); opacity: 0.5;
         }
         .shape-3 {
-          position: absolute; width: 440px; height: 440px;
+          position: absolute; width: 460px; height: 460px;
           background: var(--red); border-radius: 4px;
-          top: 20px; right: 60px; opacity: 0.07;
+          top: 10px; right: 60px; opacity: 0.06;
         }
+        /* Ashoka Chakra watermark */
+        .shape-chakra {
+          position: absolute; right: 110px; top: 50%;
+          transform: translateY(-50%);
+          width: 320px; height: 320px;
+          border-radius: 50%;
+          border: 2px solid rgba(200,57,26,0.08);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 260px; line-height: 1; opacity: 0.05;
+          color: var(--red); user-select: none;
+        }
+
         .hero-content {
           position: relative; z-index: 2;
           max-width: 1200px; margin: 0 auto; padding: 140px 64px 120px;
           width: 100%;
-          display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
         }
         .hero-eyebrow {
           font-family: var(--sans);
@@ -240,7 +210,7 @@ export default function Home() {
           background: var(--red); border-radius: 2px;
         }
         .hero-headline {
-          font-size: clamp(48px, 5.5vw, 76px);
+          font-size: clamp(44px, 5vw, 72px);
           font-weight: 600; line-height: 1.08; letter-spacing: -0.02em;
           margin-bottom: 28px; color: var(--ink);
           opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards;
@@ -249,32 +219,41 @@ export default function Home() {
         .hero-sub {
           font-family: var(--sans);
           font-size: 17px; line-height: 1.75; color: var(--ink-mid);
-          max-width: 420px; margin-bottom: 48px; font-weight: 400;
+          max-width: 420px; margin-bottom: 16px;
           opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+        }
+        /* Election chips */
+        .hero-chips {
+          display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px;
+          opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
+        }
+        .hero-chip {
+          font-family: var(--sans); font-size: 11px; font-weight: 600;
+          letter-spacing: 0.06em; color: var(--red);
+          background: var(--peach); border: 1px solid var(--peach-mid);
+          border-radius: 100px; padding: 5px 13px;
         }
         .hero-actions {
           display: flex; gap: 16px; align-items: center;
-          opacity: 0; animation: fadeUp 0.8s ease 0.65s forwards;
+          opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards;
         }
         .btn-primary {
-          font-family: var(--sans);
-          font-size: 14px; font-weight: 600; letter-spacing: 0.03em;
-          background: var(--red); color: white;
-          padding: 15px 36px; border: none; border-radius: 2px; cursor: pointer;
-          transition: all 0.25s; box-shadow: 0 2px 12px rgba(200,57,26,0.25);
+          font-family: var(--sans); font-size: 14px; font-weight: 600; letter-spacing: 0.03em;
+          background: var(--red); color: white; padding: 15px 36px; border: none;
+          border-radius: 2px; cursor: pointer; transition: all 0.25s;
+          box-shadow: 0 2px 12px rgba(200,57,26,0.25);
         }
         .btn-primary:hover { background: var(--red-deep); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(200,57,26,0.35); }
         .btn-outline {
-          font-family: var(--sans);
-          font-size: 14px; font-weight: 600; letter-spacing: 0.03em;
+          font-family: var(--sans); font-size: 14px; font-weight: 600; letter-spacing: 0.03em;
           background: transparent; color: var(--ink-mid);
           padding: 15px 28px; border: 1.5px solid var(--stone); border-radius: 2px; cursor: pointer;
           transition: all 0.25s; display: flex; align-items: center; gap: 10px;
         }
         .btn-outline:hover { border-color: var(--red); color: var(--red); gap: 16px; }
-        .btn-outline::after { content: '→'; transition: inherit; }
+        .btn-outline::after { content: '→'; }
 
-        /* Hero Card */
+        /* Hero card */
         .hero-right { opacity: 0; animation: fadeIn 1s ease 0.8s forwards; }
         .hero-card {
           background: white; border-radius: 4px;
@@ -282,200 +261,222 @@ export default function Home() {
           overflow: hidden; transform: rotate(0.5deg);
         }
         .hero-card-header {
-          background: var(--red); padding: 24px 32px;
+          background: var(--red); padding: 22px 28px;
           display: flex; align-items: center; justify-content: space-between;
         }
         .hero-card-title {
-          font-family: var(--sans);
-          font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
-          text-transform: uppercase; color: rgba(255,255,255,0.8);
+          font-family: var(--sans); font-size: 11px; font-weight: 700;
+          letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.8);
         }
         .hero-card-badge {
-          font-family: var(--sans);
-          font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+          font-family: var(--sans); font-size: 10px; font-weight: 600;
           background: rgba(255,255,255,0.2); color: white;
           padding: 4px 10px; border-radius: 100px;
         }
-        .hero-card-body { padding: 32px; }
+        .hero-card-body { padding: 28px; }
         .hero-card-stat {
           display: flex; justify-content: space-between; align-items: center;
-          padding: 18px 0; border-bottom: 1px solid var(--off-white);
+          padding: 16px 0; border-bottom: 1px solid var(--off-white);
         }
         .hero-card-stat:last-child { border-bottom: none; }
         .hcs-label { font-family: var(--sans); font-size: 13px; color: var(--ink-light); font-weight: 500; }
         .hcs-val {
-          font-family: var(--sans); font-size: 20px; font-weight: 700; color: var(--ink);
+          font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink);
           display: flex; align-items: center; gap: 8px;
         }
         .hcs-pill {
           font-size: 10px; font-weight: 600;
-          background: var(--peach); color: var(--red);
-          padding: 3px 8px; border-radius: 100px;
+          background: var(--peach); color: var(--red); padding: 3px 8px; border-radius: 100px;
         }
+        .hcs-pill.green { background: #e8f5e9; color: var(--india-green); }
         .hero-card-note {
-          margin-top: 24px; padding: 14px 18px;
-          background: var(--peach); border-radius: 3px;
-          font-family: var(--sans); font-size: 12px; color: var(--red);
+          margin-top: 20px; padding: 12px 16px; background: var(--peach); border-radius: 3px;
+          font-family: var(--sans); font-size: 11px; color: var(--red);
           font-weight: 600; text-align: center; letter-spacing: 0.04em;
         }
 
-        /* STATS BAR */
-        .stats-bar {
-          background: var(--ink);
-          display: grid; grid-template-columns: repeat(4, 1fr);
-        }
+        /* ── STATS BAR ── */
+        .stats-bar { background: var(--ink); display: grid; grid-template-columns: repeat(4, 1fr); }
         .stat-item {
-          padding: 40px 48px;
-          border-right: 1px solid rgba(255,255,255,0.07);
+          padding: 40px 48px; border-right: 1px solid rgba(255,255,255,0.07);
           position: relative;
         }
         .stat-item::before {
-          content: ''; position: absolute;
-          top: 0; left: 0; right: 0; height: 3px;
+          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
           background: transparent; transition: background 0.3s;
         }
         .stat-item:hover::before { background: var(--red); }
         .stat-item:last-child { border-right: none; }
         .stat-value {
-          font-family: 'Lora', serif;
-          font-size: 52px; font-weight: 700; color: white;
-          line-height: 1; margin-bottom: 6px;
+          font-family: 'Lora', serif; font-size: 52px; font-weight: 700;
+          color: white; line-height: 1; margin-bottom: 6px;
         }
         .stat-suffix { color: var(--coral); }
         .stat-label {
-          font-family: var(--sans);
-          font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-          color: rgba(255,255,255,0.4); font-weight: 500;
+          font-family: var(--sans); font-size: 11px; letter-spacing: 0.18em;
+          text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 500;
         }
 
-        /* MARQUEE */
+        /* ── MARQUEE ── */
         .marquee-section {
-          overflow: hidden; padding: 18px 0;
+          overflow: hidden; padding: 16px 0;
           background: var(--peach);
-          border-top: 1px solid var(--peach-mid);
-          border-bottom: 1px solid var(--peach-mid);
+          border-top: 1px solid var(--peach-mid); border-bottom: 1px solid var(--peach-mid);
         }
-        .marquee-track {
-          display: flex; gap: 0; white-space: nowrap;
-          animation: marquee 28s linear infinite;
-        }
+        .marquee-track { display: flex; white-space: nowrap; animation: marquee 32s linear infinite; }
         .marquee-item {
-          font-family: var(--sans);
-          font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
-          color: var(--red); flex-shrink: 0; font-weight: 600;
-          padding: 0 48px;
+          font-family: var(--sans); font-size: 12px; letter-spacing: 0.22em;
+          text-transform: uppercase; color: var(--red); flex-shrink: 0;
+          font-weight: 600; padding: 0 48px;
           display: flex; align-items: center; gap: 48px;
         }
         .marquee-item::after { content: '✦'; font-size: 8px; color: var(--coral-light); }
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* ABOUT */
-        .about-section {
-          padding: 120px 64px; max-width: 1200px; margin: 0 auto;
-          display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
-        }
+        /* ── CAMPAIGNS SECTION ── */
+        .campaigns-section { padding: 100px 64px; background: var(--warm-white); }
+        .campaigns-inner { max-width: 1200px; margin: 0 auto; }
         .section-label {
-          font-family: var(--sans);
-          font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-          color: var(--red); margin-bottom: 20px; font-weight: 600;
+          font-family: var(--sans); font-size: 11px; letter-spacing: 0.22em;
+          text-transform: uppercase; color: var(--red); margin-bottom: 20px; font-weight: 600;
           display: flex; align-items: center; gap: 12px;
         }
         .section-label::before {
           content: ''; display: block; width: 28px; height: 2px;
           background: var(--red); border-radius: 2px;
         }
+        .campaigns-headline {
+          font-size: clamp(32px, 3.5vw, 46px); font-weight: 600;
+          color: var(--ink); margin-bottom: 56px; max-width: 600px; letter-spacing: -0.01em;
+        }
+        .campaigns-grid {
+          display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+        }
+        .campaign-card {
+          background: white; border-radius: 3px;
+          border: 1px solid var(--stone); overflow: hidden;
+          transition: all 0.3s; position: relative;
+        }
+        .campaign-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.09); border-color: var(--peach-mid); }
+        .campaign-card-top {
+          padding: 28px 32px 24px; display: flex; justify-content: space-between; align-items: flex-start;
+        }
+        .campaign-flag { font-size: 32px; line-height: 1; }
+        .campaign-result-badge {
+          font-family: var(--sans); font-size: 11px; font-weight: 700;
+          letter-spacing: 0.08em; padding: 5px 12px; border-radius: 100px;
+          background: #e8f5e9; color: var(--india-green);
+        }
+        .campaign-result-badge.ongoing { background: var(--peach); color: var(--red); }
+        .campaign-election {
+          font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 6px;
+          padding: 0 32px;
+        }
+        .campaign-meta {
+          display: flex; gap: 20px; padding: 12px 32px 28px;
+          border-top: 1px solid var(--off-white); margin-top: 16px;
+        }
+        .campaign-meta-item { display: flex; flex-direction: column; gap: 3px; }
+        .campaign-meta-label {
+          font-family: var(--sans); font-size: 10px; letter-spacing: 0.15em;
+          text-transform: uppercase; color: var(--ink-light); font-weight: 600;
+        }
+        .campaign-meta-val {
+          font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--ink);
+        }
+        .campaign-bar {
+          height: 3px; background: var(--peach-mid); position: absolute; bottom: 0; left: 0; right: 0;
+        }
+        .campaign-bar-fill { height: 100%; transition: width 1s ease; }
+
+        /* ── ABOUT ── */
+        .about-section {
+          padding: 100px 64px; background: var(--off-white);
+          border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);
+        }
+        .about-inner {
+          max-width: 1200px; margin: 0 auto;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
+        }
         .about-headline {
           font-size: clamp(32px, 3.5vw, 46px); font-weight: 600;
           line-height: 1.18; margin-bottom: 28px; color: var(--ink); letter-spacing: -0.01em;
         }
         .about-text {
-          font-family: var(--sans);
-          font-size: 16px; line-height: 1.8; color: var(--ink-mid); margin-bottom: 18px;
+          font-family: var(--sans); font-size: 16px; line-height: 1.8;
+          color: var(--ink-mid); margin-bottom: 18px;
         }
         .about-signature {
           margin-top: 36px; font-family: var(--caveat);
           font-size: 28px; color: var(--red); font-weight: 600;
         }
         .principle {
-          padding: 28px 0; border-bottom: 1px solid var(--stone);
-          position: relative; padding-left: 0;
-          transition: padding-left 0.3s;
+          padding: 26px 0; border-bottom: 1px solid var(--stone);
+          transition: padding-left 0.3s; cursor: default;
         }
         .principle:first-child { padding-top: 0; }
         .principle:hover { padding-left: 12px; }
         .principle-num {
-          font-family: var(--sans);
-          font-size: 10px; color: var(--red); letter-spacing: 0.2em;
-          text-transform: uppercase; font-weight: 700; margin-bottom: 10px;
+          font-family: var(--sans); font-size: 10px; color: var(--red);
+          letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 10px;
         }
         .principle-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
         .principle-text { font-family: var(--sans); font-size: 14px; color: var(--ink-light); line-height: 1.7; }
 
-        /* SERVICES */
-        .services-section {
-          background: var(--off-white);
-          border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);
-          padding: 100px 64px;
-        }
+        /* ── SERVICES ── */
+        .services-section { padding: 100px 64px; background: var(--warm-white); }
         .services-inner { max-width: 1200px; margin: 0 auto; }
         .services-header {
           display: flex; justify-content: space-between;
-          align-items: flex-end; margin-bottom: 64px; gap: 48px;
+          align-items: flex-end; margin-bottom: 56px; gap: 48px;
         }
         .services-headline {
-          font-size: clamp(32px, 3.5vw, 48px); font-weight: 600;
+          font-size: clamp(32px, 3.5vw, 46px); font-weight: 600;
           color: var(--ink); max-width: 380px; letter-spacing: -0.01em;
         }
         .services-desc {
           font-family: var(--sans); max-width: 360px; font-size: 15px;
           color: var(--ink-mid); line-height: 1.75;
         }
-        .services-grid {
-          display: grid; grid-template-columns: repeat(3, 1fr);
-          gap: 2px; background: var(--stone);
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--stone); }
         .service-card {
-          background: white; padding: 44px 36px;
-          transition: all 0.3s; cursor: default;
+          background: white; padding: 40px 32px; transition: all 0.3s; cursor: default;
           position: relative; overflow: hidden;
         }
         .service-card::after {
-          content: ''; position: absolute;
-          bottom: 0; left: 0; right: 0; height: 3px;
-          background: var(--red); transform: scaleX(0);
-          transform-origin: left; transition: transform 0.4s ease;
+          content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+          background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
         }
         .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
         .service-card:hover::after { transform: scaleX(1); }
         .service-num {
-          font-family: var(--sans);
-          font-size: 11px; color: var(--coral-light); letter-spacing: 0.2em;
-          font-weight: 700; margin-bottom: 20px;
+          font-family: var(--sans); font-size: 11px; color: var(--coral-light);
+          letter-spacing: 0.2em; font-weight: 700; margin-bottom: 18px;
         }
-        .service-icon { font-size: 20px; color: var(--red); margin-bottom: 16px; }
-        .service-title { font-size: 22px; font-weight: 600; margin-bottom: 14px; color: var(--ink); }
+        .service-icon { font-size: 18px; color: var(--red); margin-bottom: 14px; }
+        .service-title { font-size: 21px; font-weight: 600; margin-bottom: 12px; color: var(--ink); }
         .service-desc-text { font-family: var(--sans); font-size: 14px; color: var(--ink-light); line-height: 1.75; }
         .service-link {
-          margin-top: 28px; font-family: var(--sans); font-size: 12px; font-weight: 700;
+          margin-top: 24px; font-family: var(--sans); font-size: 12px; font-weight: 700;
           letter-spacing: 0.1em; text-transform: uppercase;
-          color: transparent; transition: color 0.3s;
-          display: flex; align-items: center; gap: 8px;
+          color: transparent; transition: color 0.3s; display: flex; align-items: center; gap: 8px;
         }
         .service-card:hover .service-link { color: var(--red); }
 
-        /* TESTIMONIAL */
+        /* ── TESTIMONIAL ── */
         .testimonial-section {
-          padding: 100px 64px; background: var(--warm-white);
+          padding: 100px 64px; background: var(--off-white);
+          border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);
           display: flex; align-items: center; justify-content: center;
         }
         .testimonial-inner { max-width: 720px; text-align: center; }
         .testimonial-quote-mark {
-          font-family: 'Lora', serif; font-size: 100px; line-height: 0.6;
-          color: var(--peach-mid); margin-bottom: 32px; display: block;
+          font-family: 'Lora', serif; font-size: 90px; line-height: 0.6;
+          color: var(--peach-mid); margin-bottom: 28px; display: block;
         }
         .testimonial-text {
-          font-size: clamp(20px, 2.5vw, 28px); font-style: italic;
-          font-weight: 500; line-height: 1.55; color: var(--ink); margin-bottom: 36px;
+          font-size: clamp(20px, 2.2vw, 27px); font-style: italic;
+          font-weight: 500; line-height: 1.55; color: var(--ink); margin-bottom: 32px;
         }
         .testimonial-attr {
           font-family: var(--sans); font-size: 12px; letter-spacing: 0.15em;
@@ -483,27 +484,28 @@ export default function Home() {
         }
         .testimonial-attr span { color: var(--red); }
 
-        /* CTA */
-        .cta-section {
-          background: var(--ink); padding: 120px 64px;
-          position: relative; overflow: hidden;
-        }
+        /* ── CTA ── */
+        .cta-section { background: var(--ink); padding: 120px 64px; position: relative; overflow: hidden; }
         .cta-shape-1 {
-          position: absolute; width: 500px; height: 500px;
-          background: var(--red); border-radius: 4px;
+          position: absolute; width: 500px; height: 500px; background: var(--red); border-radius: 4px;
           right: -100px; top: -100px; transform: rotate(15deg); opacity: 0.07;
         }
         .cta-shape-2 {
-          position: absolute; width: 300px; height: 300px;
-          background: var(--coral); border-radius: 4px;
+          position: absolute; width: 300px; height: 300px; background: var(--coral); border-radius: 4px;
           right: 60px; top: -60px; transform: rotate(8deg); opacity: 0.05;
+        }
+        /* Tricolor accent line */
+        .cta-tricolor {
+          position: absolute; top: 0; left: 0; right: 0; height: 4px;
+          background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+          opacity: 0.6;
         }
         .cta-content {
           position: relative; z-index: 1; max-width: 1200px; margin: 0 auto;
           display: grid; grid-template-columns: 1fr auto; gap: 80px; align-items: center;
         }
         .cta-headline {
-          font-size: clamp(36px, 4vw, 58px); font-weight: 600;
+          font-size: clamp(36px, 4vw, 56px); font-weight: 600;
           color: white; line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.01em;
         }
         .cta-headline em { font-style: italic; color: var(--coral-light); }
@@ -524,7 +526,7 @@ export default function Home() {
           color: rgba(255,255,255,0.25); letter-spacing: 0.08em; text-align: right;
         }
 
-        /* FOOTER */
+        /* ── FOOTER ── */
         .footer {
           background: #111; padding: 56px 64px;
           display: flex; justify-content: space-between; align-items: center;
@@ -532,20 +534,20 @@ export default function Home() {
           border-top: 1px solid rgba(255,255,255,0.05);
         }
         .footer-logo-wrap { display: flex; align-items: center; }
-        .footer-logo-block { position: relative; width: 36px; height: 26px; }
+        .footer-logo-block { position: relative; width: 38px; height: 28px; }
         .footer-card-back {
-          width: 36px; height: 26px; background: var(--coral); opacity: 0.6;
+          width: 38px; height: 28px; background: var(--coral); opacity: 0.6;
           position: absolute; top: -2px; left: 2px; transform: rotate(3deg); border-radius: 2px;
         }
         .footer-card-front {
-          width: 36px; height: 26px; background: var(--red);
+          width: 38px; height: 28px; background: var(--red);
           position: absolute; top: 0; left: 0;
           display: flex; align-items: center; justify-content: center; border-radius: 2px;
         }
-        .footer-card-text { font-family: var(--sans); font-size: 9px; font-weight: 700; color: white; }
+        .footer-card-text { font-family: var(--sans); font-size: 10px; font-weight: 700; color: white; }
         .footer-consulting {
-          font-family: var(--caveat); font-size: 18px; font-weight: 600;
-          color: rgba(255,255,255,0.4); margin-left: 10px;
+          font-family: var(--caveat); font-size: 19px; font-weight: 600;
+          color: rgba(255,255,255,0.35); margin-left: 11px;
         }
         .footer-copy {
           font-family: var(--sans); font-size: 11px; letter-spacing: 0.12em;
@@ -559,78 +561,61 @@ export default function Home() {
         }
         .footer-links a:hover { color: var(--coral-light); }
 
-        /* REVEAL */
+        /* ── REVEAL ── */
         .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.75s ease, transform 0.75s ease; }
         .reveal.is-visible { opacity: 1; transform: translateY(0); }
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
         .reveal-delay-4 { transition-delay: 0.4s; }
-        .reveal-delay-5 { transition-delay: 0.5s; }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* ── RESPONSIVE ── */
         @media (max-width: 960px) {
-          .nav { padding: 18px 24px; }
-          .nav.scrolled { padding: 12px 24px; }
-          .nav-links, .nav-cta { display: none; }
           .hero-content { grid-template-columns: 1fr; padding: 120px 24px 80px; gap: 48px; }
           .stats-bar { grid-template-columns: repeat(2, 1fr); }
-          .about-section { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
-          .services-section { padding: 80px 24px; }
+          .campaigns-section, .about-section, .services-section,
+          .testimonial-section, .cta-section { padding: 80px 24px; }
+          .campaigns-grid { grid-template-columns: 1fr; }
+          .about-inner { grid-template-columns: 1fr; gap: 48px; }
           .services-header { flex-direction: column; align-items: flex-start; gap: 16px; }
           .services-grid { grid-template-columns: 1fr; }
           .cta-content { grid-template-columns: 1fr; }
           .cta-right { align-items: flex-start; }
-          .cta-section, .testimonial-section { padding: 80px 24px; }
           .footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
         }
       `}</style>
 
-      {/* NAV */}
-      <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
-        <div className="nav-logo" onClick={() => scrollTo("Home")}>
-          <div className="nav-logo-block">
-            <div className="logo-card-back" />
-            <div className="logo-card-front">
-              <span className="logo-mpr"><span className="small-m">m</span>PR</span>
-            </div>
-          </div>
-          <span className="logo-consulting">Consulting</span>
-        </div>
-        <ul className="nav-links">
-          {NAV_LINKS.map((link) => (
-            <li key={link}><a onClick={() => scrollTo(link)}>{link}</a></li>
-          ))}
-        </ul>
-        <button className="nav-cta" onClick={() => scrollTo("Contact")}>
-          Start a Campaign
-        </button>
-      </nav>
+      <Header />
 
-      {/* HERO */}
+      {/* ── HERO ── */}
       <section id="home" className="hero" ref={heroRef}>
         <div className="hero-shapes">
-          <div className="shape-1" />
-          <div className="shape-2" />
-          <div className="shape-3" />
+          <div className="shape-1" /><div className="shape-2" /><div className="shape-3" />
+          <div className="shape-chakra">☸</div>
         </div>
         <div className="hero-content">
-          <div className="hero-left">
-            <div className="hero-eyebrow">Strategic Political Consulting</div>
+          <div>
+            <div className="hero-eyebrow">India's Political Campaign Specialists</div>
             <h1 className="hero-headline">
-              We build campaigns<br />that <em>win.</em>
+              From booth to<br />ballot, we <em>deliver.</em>
             </h1>
             <p className="hero-sub">
-              Execution-driven political strategy for candidates and causes that demand more than ordinary consulting.
+              Strategic political consulting for Indian elections — from Lok Sabha to Vidhan Sabha. We don't just advise. We operate.
             </p>
+            <div className="hero-chips">
+              {["Lok Sabha 2024", "Maharashtra Vidhan Sabha", "Delhi 2025", "Bihar Elections"].map((c) => (
+                <span className="hero-chip" key={c}>{c}</span>
+              ))}
+            </div>
             <div className="hero-actions">
               <button className="btn-primary" onClick={() => scrollTo("Contact")}>
                 Engage Our Team
               </button>
-              <button className="btn-outline" onClick={() => scrollTo("Services")}>
-                Our Services
+              <button className="btn-outline" onClick={() => scrollTo("Campaigns")}>
+                Our Campaigns
               </button>
             </div>
           </div>
@@ -638,26 +623,26 @@ export default function Home() {
           <div className="hero-right">
             <div className="hero-card">
               <div className="hero-card-header">
-                <span className="hero-card-title">Campaign Dashboard</span>
-                <span className="hero-card-badge">● Live</span>
+                <span className="hero-card-title">Live Campaign Tracker</span>
+                <span className="hero-card-badge">● Active</span>
               </div>
               <div className="hero-card-body">
                 {[
-                  { label: "Win Probability", val: "74%", pill: "↑ +6%" },
-                  { label: "Voter Contact Rate", val: "61,430", pill: "On track" },
-                  { label: "Fundraising", val: "$2.4M", pill: "↑ 18%" },
-                  { label: "Media Sentiment", val: "Positive", pill: "Stable" },
+                  { label: "Delhi 2025 — Win Probability", val: "71%", pill: "↑ +8%", green: false },
+                  { label: "Booths Activated", val: "3,240", pill: "On target", green: true },
+                  { label: "Voter Contacts Today", val: "1.2L", pill: "↑ 22%", green: false },
+                  { label: "WhatsApp Reach", val: "8.4L", pill: "Expanding", green: true },
                 ].map((row) => (
                   <div className="hero-card-stat" key={row.label}>
                     <span className="hcs-label">{row.label}</span>
                     <span className="hcs-val">
                       {row.val}
-                      <span className="hcs-pill">{row.pill}</span>
+                      <span className={`hcs-pill ${row.green ? "green" : ""}`}>{row.pill}</span>
                     </span>
                   </div>
                 ))}
                 <div className="hero-card-note">
-                  MPR Intelligence Report · Updated hourly
+                  MPR War Room · Delhi Assembly 2025
                 </div>
               </div>
             </div>
@@ -665,7 +650,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* STATS BAR */}
+      {/* ── STATS BAR ── */}
       <div className="stats-bar">
         {STATS.map((s) => (
           <div className="stat-item" key={s.label}>
@@ -675,7 +660,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* MARQUEE */}
+      {/* ── MARQUEE ── */}
       <div className="marquee-section">
         <div className="marquee-track">
           {[...Array(2)].map((_, i) =>
@@ -686,19 +671,68 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ABOUT */}
-      <section id="about" style={{ background: "var(--warm-white)" }}>
-        <div className="about-section">
+      {/* ── CAMPAIGNS ── */}
+      <section id="campaigns" className="campaigns-section">
+        <div className="campaigns-inner">
+          <div className="section-label reveal">Our Track Record</div>
+          <h2 className="campaigns-headline reveal reveal-delay-1">
+            Campaigns fought across<br />India's biggest elections
+          </h2>
+          <div className="campaigns-grid">
+            {CAMPAIGNS.map((c, i) => {
+              const winRate = c.result === "Ongoing" ? null :
+                Math.round(parseInt(c.result) / parseInt(c.seats) * 100);
+              return (
+                <div className={`campaign-card reveal reveal-delay-${(i % 2) + 1}`} key={c.election}>
+                  <div className="campaign-card-top">
+                    <span className="campaign-flag">{c.flag}</span>
+                    <span className={`campaign-result-badge ${c.result === "Ongoing" ? "ongoing" : ""}`}>
+                      {c.result}
+                    </span>
+                  </div>
+                  <div className="campaign-election">{c.election}</div>
+                  <div className="campaign-meta">
+                    <div className="campaign-meta-item">
+                      <span className="campaign-meta-label">Scope</span>
+                      <span className="campaign-meta-val">{c.scope}</span>
+                    </div>
+                    <div className="campaign-meta-item">
+                      <span className="campaign-meta-label">Seats</span>
+                      <span className="campaign-meta-val">{c.seats}</span>
+                    </div>
+                    {winRate && (
+                      <div className="campaign-meta-item">
+                        <span className="campaign-meta-label">Win Rate</span>
+                        <span className="campaign-meta-val" style={{ color: "var(--india-green)" }}>{winRate}%</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="campaign-bar">
+                    <div className="campaign-bar-fill" style={{
+                      width: winRate ? `${winRate}%` : "45%",
+                      background: c.result === "Ongoing" ? "var(--coral-light)" : "var(--india-green)",
+                    }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ABOUT ── */}
+      <section id="about" className="about-section">
+        <div className="about-inner">
           <div>
             <div className="section-label reveal">About MPR</div>
             <h2 className="about-headline reveal reveal-delay-1">
-              Neutral by design.<br />Relentless by nature.
+              Neutral by ideology.<br />Unrelenting in execution.
             </h2>
             <p className="about-text reveal reveal-delay-2">
-              MPR Consulting was founded on a single conviction: campaigns are won or lost on the quality of their execution, not their ambitions. We don't pick sides — we build structures that succeed.
+              MPR Consulting was built around one conviction: Indian elections are won on the ground, at the booth, by workers who are well-led and well-resourced. We provide the strategy, systems, and leadership that turn candidates into elected representatives.
             </p>
             <p className="about-text reveal reveal-delay-3">
-              Our consultants have worked on federal, state, and local campaigns across the political spectrum, bringing the same rigorous, data-informed approach to every engagement.
+              We work across party lines and ideologies, bringing data-backed discipline to every engagement — whether it's a Lok Sabha constituency or a tough Vidhan Sabha seat.
             </p>
             <div className="about-signature reveal reveal-delay-4">MPR Consulting</div>
           </div>
@@ -714,18 +748,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* ── SERVICES ── */}
       <section id="services" className="services-section">
         <div className="services-inner">
           <div className="services-header">
             <div>
               <div className="section-label reveal">What We Do</div>
               <h2 className="services-headline reveal reveal-delay-1">
-                Full-spectrum campaign infrastructure
+                Full-cycle campaign capability
               </h2>
             </div>
             <p className="services-desc reveal">
-              From the first poll to election night, we provide every capability a winning campaign requires.
+              From nomination filing to counting day, we deliver every function a winning Indian campaign needs.
             </p>
           </div>
           <div className="services-grid">
@@ -742,41 +776,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIAL */}
+      {/* ── TESTIMONIAL ── */}
       <div className="testimonial-section">
         <div className="testimonial-inner reveal">
           <span className="testimonial-quote-mark">"</span>
           <p className="testimonial-text">
-            MPR didn't just advise us — they embedded with our team, built our ground operation from scratch, and delivered a 9-point swing in the final three weeks.
+            MPR set up our booth committee structure across 480 booths in 6 weeks. On polling day, our turnout in targeted villages was 14 points above the district average.
           </p>
           <div className="testimonial-attr">
-            — Campaign Manager, <span>U.S. Senate Race · 2022</span>
+            — Campaign Coordinator, <span>Maharashtra Vidhan Sabha · 2024</span>
           </div>
         </div>
       </div>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section id="contact" className="cta-section">
-        <div className="cta-shape-1" />
-        <div className="cta-shape-2" />
+        <div className="cta-tricolor" />
+        <div className="cta-shape-1" /><div className="cta-shape-2" />
         <div className="cta-content">
           <div>
             <div className="section-label reveal" style={{ color: "var(--coral-light)" }}>Get Started</div>
             <h2 className="cta-headline reveal reveal-delay-1">
-              Your campaign deserves<br /><em>serious</em> counsel.
+              Your constituency deserves<br /><em>serious</em> counsel.
             </h2>
             <p className="cta-sub reveal reveal-delay-2">
-              We take a limited number of engagements each cycle to ensure every client receives our full attention. Reach out early.
+              We take a limited number of engagements each election cycle to ensure every client receives our full attention and resources. Early conversations are always better.
             </p>
           </div>
           <div className="cta-right reveal reveal-delay-2">
             <button className="btn-primary-lg">Schedule a Consultation</button>
-            <p className="cta-note">Limited engagements per cycle</p>
+            <p className="cta-note">Limited engagements per election cycle</p>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* ── FOOTER ── */}
       <footer className="footer">
         <div className="footer-logo-wrap">
           <div className="footer-logo-block">
