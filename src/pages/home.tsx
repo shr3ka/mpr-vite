@@ -55,7 +55,7 @@ const CAMPAIGNS = [
     result: "28 Wins",
     color: "#c8391a",
     flag: "🇮🇳",
-    video: "/src/assets/lok-sabha.mp4",
+    video: "/lok-sabha.mp4",
   },
   {
     election: "Maharashtra Vidhan Sabha",
@@ -64,7 +64,7 @@ const CAMPAIGNS = [
     result: "41 Wins",
     color: "#e05a35",
     flag: "🗳",
-    video: "/src/assets/maharashtra.mp4",
+    video: "/maharashtra.mp4",
   },
   {
     election: "Delhi Assembly 2025",
@@ -73,7 +73,7 @@ const CAMPAIGNS = [
     result: "22 Wins",
     color: "#b8320f",
     flag: "🏛",
-    video: "/src/assets/delhi.mp4",
+    video: "/delhi.mp4",
   },
   {
     election: "Bihar Vidhan Sabha",
@@ -83,7 +83,7 @@ const CAMPAIGNS = [
     color: "#d04020",
     flag: "🗺",
     // Replace with your actual file: src/assets/bihar.mp4
-    video: "/src/assets/bihar.mp4",
+    video: "/bihar.mp4",
   },
 ];
 
