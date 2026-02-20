@@ -72,7 +72,7 @@ const CAMPAIGNS = [
     result: "Ongoing",
     color: "#b8320f",
     flag: "🏛",
-    video: "src/assets/Chief Election Commissioner bill #Explained  ...#Patcummins #DavidWarner #RohitSharma #WC23.mp4",
+    video: "src/assets/EC bill.mp4",
   },
   {
     election: "Bihar Vidhan Sabha",
@@ -81,8 +81,7 @@ const CAMPAIGNS = [
     result: "22 Wins",
     color: "#d04020",
     flag: "🗺",
-    // Replace with your actual file: src/assets/bihar.mp4
-    video: "/src/assets/bihar.mp4",
+    video: "src/assets/Anandpur.mp4 ",
   },
 ];
 
