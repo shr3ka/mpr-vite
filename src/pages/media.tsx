@@ -8,8 +8,8 @@ const ELECTIONS = [
   {
     id: "lok-sabha",
     title: "Lok Sabha 2024",
-    scope: "National · 34 Constituencies",
-    result: "28 Wins",
+    scope: "National · 7 Constituencies",
+    result: "3 Wins",
     color: "#c8391a",
     accent: "#e05a35",
     images: [
