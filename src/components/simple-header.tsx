@@ -125,6 +125,7 @@ export default function Header() {
           font-family: var(--sans); font-size: 11px; font-weight: 600;
           color: var(--red); letter-spacing: 0.04em;
           white-space: nowrap;
+          margin-bottom: 8px;
         }
         .nav-election-dot {
           width: 6px; height: 6px; border-radius: 50%;
@@ -221,10 +222,6 @@ export default function Header() {
         </ul>
 
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          <div className="nav-election-badge">
-            <div className="nav-election-dot" />
-            2026 West Bengal Elections Upcoming
-          </div>
           <button className="nav-cta" onClick={() => navigate("/contact-us")}>
             Get in Touch
           </button>

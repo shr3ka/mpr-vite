@@ -690,6 +690,12 @@ export default function Home() {
         </div>
         <div className="hero-content">
           <div>
+            {/*
+              <div className="nav-election-badge">
+                <div className="nav-election-dot" />
+                2026 West Bengal Elections Upcoming
+              </div>
+              */}
             <div className="hero-eyebrow">India's Political Campaign Specialists</div>
             <h1 className="hero-headline">
               From booth to<br />ballot, we <em>deliver.</em>
