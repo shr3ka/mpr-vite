@@ -73,11 +73,27 @@ export default function ContactUs() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = () => {
-    if (!form.name || !form.email || !form.phone) return;
-    setSubmitted(true);
-  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!form.name || !form.email || !form.phone) return;
 
+  setSubmitted(true); // shows loading state immediately
+
+  try {
+    const res = await fetch("https://formspree.io/f/mreaarpj", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    if (!res.ok) {
+      setSubmitted(false);
+      alert("Something went wrong. Please try again.");
+    }
+  } catch {
+    setSubmitted(false);
+    alert("Network error. Please try again.");
+  }
+};
   return (
     <div style={{ fontFamily: "'Lora', Georgia, serif", background: "#faf9f7", color: "#1a1512", minHeight: "100vh" }}>
       <style>{`
