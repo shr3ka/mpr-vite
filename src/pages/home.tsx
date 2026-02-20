@@ -51,20 +51,22 @@ const CAMPAIGNS = [
   {
     election: "Lok Sabha 2024",
     scope: "National",
-    seats: "34 Constituencies",
-    result: "28 Wins",
+    seats: "13 Constituencies",
+    result: "3 Wins",
     color: "#c8391a",
     flag: "🇮🇳",
-    video: "/lok-sabha.mp4",
+    video: "/Anandpur.mp4",
+    mediaId: "lok-sabha",
   },
   {
     election: "Maharashtra Vidhan Sabha",
     scope: "State",
-    seats: "52 Seats",
-    result: "41 Wins",
+    seats: "288 Seats",
+    result: "230 Wins",
     color: "#e05a35",
     flag: "🗳",
     video: "/maharashtra.mp4",
+    mediaId: "lok-sabha",
   },
   {
     election: "Delhi Assembly 2025",
@@ -74,16 +76,17 @@ const CAMPAIGNS = [
     color: "#b8320f",
     flag: "🏛",
     video: "/delhi.mp4",
+    mediaId: "lok-sabha",
   },
   {
     election: "Bihar Vidhan Sabha",
     scope: "State",
-    seats: "28 Seats",
-    result: "22 Wins",
+    seats: "243 Seats",
+    result: "202 Wins",
     color: "#d04020",
     flag: "🗺",
-    // Replace with your actual file: src/assets/bihar.mp4
     video: "/bihar.mp4",
+    mediaId: "lok-sabha",
   },
 ];
 
@@ -108,12 +111,12 @@ const PRINCIPLES = [
 const MARQUEE_ITEMS = [
   "Lok Sabha Elections",
   "Vidhan Sabha Campaigns",
-  "Booth Management",
+  "Narrative Setup",
   "Karyakarta Mobilisation",
   "Vernacular Media",
   "Voter Outreach",
   "WhatsApp Campaigns",
-  "War Room Operations",
+  "IT Cell Operations",
 ];
 
 export default function Home() {
@@ -366,6 +369,12 @@ export default function Home() {
           transition: all 0.3s; position: relative;
         }
         .campaign-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.09); border-color: var(--peach-mid); }
+        .campaign-card:hover .campaign-election { color: var(--red); }
+        .campaign-card:hover .campaign-meta-val { color: var(--red); }
+        .campaign-card:hover .campaign-flag { filter: saturate(1.3); }
+        .campaign-card-top {
+          padding: 28px 32px 24px; display: flex; justify-content: space-between; align-items: flex-start;
+        }
         .campaign-card-top {
           padding: 28px 32px 24px; display: flex; justify-content: space-between; align-items: flex-start;
         }
@@ -399,7 +408,7 @@ export default function Home() {
 
         /* ── VIDEO THUMBNAIL ── */
         .campaign-video-wrap {
-          position: relative; width: 100%; aspect-ratio: 16/9;
+          position: relative; width: 100%; aspect-ratio: 9/16;
           overflow: hidden; background: #111; cursor: pointer;
         }
         .campaign-video-wrap video {
@@ -769,7 +778,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── CAMPAIGNS ── */}
+{/* ── CAMPAIGNS ── */}
       <section id="campaigns" className="campaigns-section">
         <div className="campaigns-inner">
           <div className="section-label reveal">Our Track Record</div>
@@ -781,12 +790,17 @@ export default function Home() {
               const winRate = c.result === "Ongoing" ? null :
                 Math.round(parseInt(c.result) / parseInt(c.seats) * 100);
               return (
-                <div className={`campaign-card reveal reveal-delay-${(i % 2) + 1}`} key={c.election}>
+                <div
+                  className={`campaign-card reveal reveal-delay-${(i % 2) + 1}`}
+                  key={c.election}
+                  onClick={() => navigate(`/media?tab=${c.mediaId}`)}
+                  style={{ cursor: "pointer" }}
+                >
 
                   {/* Video thumbnail — hover to preview, click to open lightbox */}
                   <div
                     className="campaign-video-wrap"
-                    onClick={() => setLightboxVideo(c.video)}
+                    onClick={(e) => { e.stopPropagation(); setLightboxVideo(c.video); }}
                     onMouseEnter={(e) => {
                       const vid = e.currentTarget.querySelector("video");
                       vid?.play();
