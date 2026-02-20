@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SERVICES = [
   {
@@ -54,7 +55,7 @@ const CAMPAIGNS = [
     result: "28 Wins",
     color: "#c8391a",
     flag: "🇮🇳",
-    video: "src/assets/after byte RC new audio.mp4",
+    video: "src/assets/lok-sabha.mp4",
   },
   {
     election: "Maharashtra Vidhan Sabha",
@@ -63,16 +64,16 @@ const CAMPAIGNS = [
     result: "41 Wins",
     color: "#e05a35",
     flag: "🗳",
-    video: "src/assets/BJP रेवड़ी मॉडल EXPOSED.mp4",
+    video: "/src/assets/maharashtra.mp4",
   },
   {
     election: "Delhi Assembly 2025",
     scope: "State",
-    seats: "18 Seats",
-    result: "Ongoing",
+    seats: "70 Seats",
+    result: "22 Wins",
     color: "#b8320f",
     flag: "🏛",
-    video: "src/assets/EC bill.mp4",
+    video: "/src/assets/delhi.mp4",
   },
   {
     election: "Bihar Vidhan Sabha",
@@ -81,7 +82,8 @@ const CAMPAIGNS = [
     result: "22 Wins",
     color: "#d04020",
     flag: "🗺",
-    video: "src/assets/Anandpur.mp4 ",
+    // Replace with your actual file: src/assets/bihar.mp4
+    video: "/src/assets/bihar.mp4",
   },
 ];
 
@@ -117,6 +119,7 @@ const MARQUEE_ITEMS = [
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [lightboxVideo, setLightboxVideo] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -679,7 +682,6 @@ export default function Home() {
           .footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
         }
       `}</style>
-
       {/* ── HERO ── */}
       <section id="home" className="hero" ref={heroRef}>
         <div className="hero-shapes">
@@ -701,7 +703,7 @@ export default function Home() {
               ))}
             </div>
             <div className="hero-actions">
-              <button className="btn-primary" onClick={() => scrollTo("Contact")}>
+              <button className="btn-primary" onClick={() => navigate("/contact-us")}>
                 Engage Our Team
               </button>
               <button className="btn-outline" onClick={() => scrollTo("Campaigns")}>
@@ -713,8 +715,8 @@ export default function Home() {
           <div className="hero-right">
             <div className="hero-card">
               <div className="hero-card-header">
-                <span className="hero-card-title">Live Campaign Tracker</span>
-                <span className="hero-card-badge">● Active</span>
+                <span className="hero-card-title"></span>
+                <span className="hero-card-badge"></span>
               </div>
               <div className="hero-card-body">
                 {[
@@ -943,7 +945,7 @@ export default function Home() {
             </p>
           </div>
           <div className="cta-right reveal reveal-delay-2">
-            <button className="btn-primary-lg">Schedule a Consultation</button>
+            <button className="btn-primary-lg" onClick={() => navigate("/contact-us")}>Schedule a Consultation</button>
             <p className="cta-note">Limited engagements per election cycle</p>
           </div>
         </div>

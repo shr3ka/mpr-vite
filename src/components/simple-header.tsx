@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NAV_LINKS = ["Home", "About", "Campaigns", "Services", "Contact"];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -221,9 +223,9 @@ export default function Header() {
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div className="nav-election-badge">
             <div className="nav-election-dot" />
-            2025 Delhi Elections Active
+            2026 West Bengal Elections Upcoming
           </div>
-          <button className="nav-cta" onClick={() => scrollTo("Contact")}>
+          <button className="nav-cta" onClick={() => navigate("/contact-us")}>
             Get in Touch
           </button>
         </div>
@@ -243,7 +245,7 @@ export default function Header() {
         {NAV_LINKS.map((link) => (
           <a key={link} onClick={() => scrollTo(link)}>{link}</a>
         ))}
-        <button className="nav-mobile-cta" onClick={() => scrollTo("Contact")}>
+        <button className="nav-mobile-cta" onClick={() => navigate("/contact-us")}>
           Get in Touch
         </button>
       </div>
