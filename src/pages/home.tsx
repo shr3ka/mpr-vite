@@ -55,7 +55,7 @@ const CAMPAIGNS = [
     result: "28 Wins",
     color: "#c8391a",
     flag: "🇮🇳",
-    video: "src/assets/lok-sabha.mp4",
+    video: "/src/assets/lok-sabha.mp4",
   },
   {
     election: "Maharashtra Vidhan Sabha",
@@ -82,6 +82,7 @@ const CAMPAIGNS = [
     result: "22 Wins",
     color: "#d04020",
     flag: "🗺",
+    // Replace with your actual file: src/assets/bihar.mp4
     video: "/src/assets/bihar.mp4",
   },
 ];
@@ -714,8 +715,8 @@ export default function Home() {
           <div className="hero-right">
             <div className="hero-card">
               <div className="hero-card-header">
-                <span className="hero-card-title"></span>
-                <span className="hero-card-badge"></span>
+                <span className="hero-card-title">Live Campaign Tracker</span>
+                <span className="hero-card-badge">● Active</span>
               </div>
               <div className="hero-card-body">
                 {[
