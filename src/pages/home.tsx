@@ -82,7 +82,6 @@ const CAMPAIGNS = [
     result: "22 Wins",
     color: "#d04020",
     flag: "🗺",
-    // Replace with your actual file: src/assets/bihar.mp4
     video: "/src/assets/bihar.mp4",
   },
 ];
