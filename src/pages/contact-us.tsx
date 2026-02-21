@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useForm, ValidationError } from '@formspree/react';
 
 const CONTACT_INFO = [
   {
@@ -57,6 +58,7 @@ type FormState = {
 
 export default function ContactUs() {
   const navigate = useNavigate();
+  const [state, handleFormSubmit] = useForm("mreaarpj");
   const [form, setForm] = useState<FormState>({
     name: "",
     organisation: "",
@@ -66,34 +68,12 @@ export default function ContactUs() {
     service: "",
     message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
+
   const [focused, setFocused] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (!form.name || !form.email || !form.phone) return;
-
-  setSubmitted(true); // shows loading state immediately
-
-  try {
-    const res = await fetch("https://formspree.io/f/mreaarpj", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    if (!res.ok) {
-      setSubmitted(false);
-      alert("Something went wrong. Please try again.");
-    }
-  } catch {
-    setSubmitted(false);
-    alert("Network error. Please try again.");
-  }
-};
 
   return (
     <div style={{ fontFamily: "'Lora', Georgia, serif", background: "#faf9f7", color: "#1a1512", minHeight: "100vh" }}>
@@ -494,7 +474,7 @@ export default function ContactUs() {
 
         {/* RIGHT — Form */}
         <div className="cu-form-wrap">
-          {submitted ? (
+          {state.succeeded ? (
             <div className="cu-success">
               <div className="cu-success-icon">✓</div>
               <div className="cu-success-title">Brief received.</div>
@@ -514,6 +494,8 @@ export default function ContactUs() {
               <div className="cu-form-grid">
 
                 {/* Contact Details */}
+                <form onSubmit={handleFormSubmit}>
+                
                 <div className="cu-field">
                   <label className="cu-label">Full Name <span className="req">*</span></label>
                   <input className={`cu-input${focused === "name" ? " on" : ""}`}
@@ -586,12 +568,13 @@ export default function ContactUs() {
                     We respond within 24 hours. All information is kept strictly confidential.
                   </p>
                   <button className="cu-submit-btn"
-                    onClick={handleSubmit}
+                    type="submit"
                     disabled={!form.name || !form.email || !form.phone}>
                     Submit Brief
                     <span className="cu-arrow">→</span>
                   </button>
                 </div>
+                </form>
 
               </div>
             </>
